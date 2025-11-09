@@ -39,20 +39,22 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
+                // Allow all static resources FIRST (HTML, CSS, JS, images)
+                .requestMatchers("/", "/*.html", "/**.html", "/**.css", "/**.js", "/static/**", "/**.png", "/**.jpg").permitAll()
+                
                 // Public APIs (Yaar vena access pannalam)
                 .requestMatchers("/api/users/register", "/api/users/login").permitAll()
                 
                 // Public delivery partner registration
                 .requestMatchers("/api/users/delivery/register").permitAll()
 
+                // Public API endpoints for restaurant browsing
+                .requestMatchers("/api/restaurants/**", "/api/menu/**").permitAll()
+
                 // --- ITHU THAAN PUTHU ADMIN RULE ---
                 // Admin mattum access panna koodiya API
                 // (hasRole("SUPER_ADMIN")-nu podum pothu, database-la "ROLE_SUPER_ADMIN" irukanum)
                 .requestMatchers("/api/users/admin/**").hasRole("SUPER_ADMIN")
-
-                // Allow all frontend files (HTML, CSS, JS) to be accessed publicly
-                // **NOTE:** Ithu thaan namma last-a fix panna vendiya chinna security issue
-                .requestMatchers("/**").permitAll()
 
                 // Matha ella request-kum authentication venum
                 .anyRequest().authenticated()
