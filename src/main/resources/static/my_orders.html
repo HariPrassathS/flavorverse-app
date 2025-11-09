@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Orders - StarkBites</title>
+    <link rel="stylesheet" href="style_theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</head>
+<body>
+    <div id="review-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" onclick="closeReviewModal()">&times;</span>
+        <h2 id="review-modal-title">Leave a Review for...</h2>
+        <form id="review-form">
+            <input type="hidden" id="review-restaurant-id">
+            
+            <div class="form-group">
+                <label>Rating</label>
+                <div class="star-rating">
+                    <span class="star" data-value="1">&#9733;</span>
+                    <span class="star" data-value="2">&#9733;</span>
+                    <span class="star" data-value="3">&#9733;</span>
+                    <span class="star" data-value="4">&#9733;</span>
+                    <span class="star" data-value="5">&#9733;</span>
+                </div>
+                <input type="hidden" id="rating-value" required>
+            </div>
+
+            <div class="form-group">
+                <label for="comment">Comment</label>
+                <textarea id="comment" rows="4" required style="width: 100%; padding: 10px; font-family: var(--font-main); border: 1px solid #ddd; border-radius: 10px;"></textarea>
+            </div>
+
+            <button type="submit" class="btn" style="width: 100%;">Submit Review</button>
+        </form>
+    </div>
+</div>
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">StarkBites</a>
+            <nav>
+                <a href="index.html" class="btn btn-secondary">Home</a>
+                <a href="my_orders.html" class="btn btn-primary">My Orders</a>
+                <a href="customer_profile.html" class="btn btn-secondary">My Profile</a>
+                <a href="#" onclick="logout()" class="btn">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero-section">
+            <h1>My Order History</h1>
+            <p>Here are all the orders you've placed with us.</p>
+        </section>
+
+        <section id="orders-list-container" style="margin-top: 30px;">
+            <p>Loading your orders...</p>
+        </section>
+    </main>
+
+    <div id="order-details-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h2>Order Details</h2>
+            <div id="modal-body-content">
+                </div>
+        </div>
+    </div>
+
+    <script src="my_orders.js" defer></script>
+    <script>
+        function logout() {
+            localStorage.removeItem('currentUser');
+            sessionStorage.removeItem('loggedInUser');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

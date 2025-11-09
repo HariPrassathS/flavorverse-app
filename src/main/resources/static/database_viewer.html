@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Viewer - StarkBites</title>
+    <link rel="stylesheet" href="style_theme.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="loader-wrapper"><div class="loader"></div></div>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">🗃️ StarkBites DB Viewer</a>
+            <nav>
+                <a href="index.html" class="btn btn-secondary">Home</a>
+                <a href="profile_test.html" class="btn btn-secondary">Quick Test</a>
+                <a href="user_manager.html" class="btn btn-secondary">User Manager</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="profile-section fade-in-section">
+            <div class="profile-header">
+                <h1>📊 Database User Viewer</h1>
+                <p>See all users in your database and reset passwords</p>
+                <button onclick="loadUsers()" class="btn btn-primary">🔄 Refresh Users</button>
+            </div>
+
+            <!-- Users List -->
+            <div class="profile-card">
+                <h2>👥 All Users in Database</h2>
+                <div id="users-container">
+                    <p>Click "Refresh Users" to load all users from database...</p>
+                </div>
+            </div>
+
+            <!-- Password Reset Tool -->
+            <div class="profile-card">
+                <h2>🔑 Password Reset Tool</h2>
+                <p>Reset password for any existing user:</p>
+                
+                <form onsubmit="resetPassword(event)">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div class="form-group">
+                            <label>Username:</label>
+                            <input type="text" id="reset-username" placeholder="Enter username" required>
+                        </div>
+                        <div class="form-group">
+                            <label>New Password:</label>
+                            <input type="password" id="reset-password" placeholder="Enter new password" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-danger">Reset Password</button>
+                </form>
+            </div>
+
+            <!-- Quick User Creator -->
+            <div class="profile-card">
+                <h2>⚡ Quick User Creator</h2>
+                <p>Create a new user with known credentials:</p>
+                
+                <form onsubmit="createQuickUser(event)">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                        <div class="form-group">
+                            <label>Username:</label>
+                            <input type="text" id="quick-username" placeholder="e.g., testuser" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password:</label>
+                            <input type="password" id="quick-password" value="password123" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Role:</label>
+                            <select id="quick-role">
+                                <option value="ROLE_CUSTOMER">Customer</option>
+                                <option value="ROLE_SUPER_ADMIN">Admin</option>
+                                <option value="ROLE_DELIVERY_PARTNER">Delivery Partner</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Full Name:</label>
+                            <input type="text" id="quick-fullname" placeholder="Test User">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success">Create User</button>
+                </form>
+            </div>
+
+            <!-- Success/Error Messages -->
+            <div id="message-container" class="message-container" style="display: none;">
+                <div id="message-text"></div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Load all users from database
+        async function loadUsers() {
+            try {
+                showMessage('Loading users from database...', 'info');
+                
+                const response = await fetch('/api/debug/users');
+                if (response.ok) {
+                    const users = await response.json();
+                    displayUsers(users);
+                    showMessage(`Found ${users.length} users in database`, 'success');
+                } else {
+                    const errorText = await response.text();
+                    showMessage(`Error loading users: ${errorText}`, 'error');
+                }
+            } catch (error) {
+                showMessage(`Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Display users in a table
+        function displayUsers(users) {
+            const container = document.getElementById('users-container');
+            
+            if (users.length === 0) {
+                container.innerHTML = '<p>No users found in database.</p>';
+                return;
+            }
+
+            let html = `
+                <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                    <thead>
+                        <tr style="background: var(--primary-green); color: white;">
+                            <th style="padding: 12px; border: 1px solid #ddd;">ID</th>
+                            <th style="padding: 12px; border: 1px solid #ddd;">Username</th>
+                            <th style="padding: 12px; border: 1px solid #ddd;">Role</th>
+                            <th style="padding: 12px; border: 1px solid #ddd;">Full Name</th>
+                            <th style="padding: 12px; border: 1px solid #ddd;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            users.forEach(user => {
+                const roleDisplay = user.role ? user.role.replace('ROLE_', '') : 'Unknown';
+                html += `
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 10px; border: 1px solid #ddd;">${user.id}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>${user.username}</strong></td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">${roleDisplay}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">${user.fullName || 'Not set'}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">
+                            <button onclick="fillResetForm('${user.username}')" class="btn btn-secondary" style="padding: 5px 10px; font-size: 12px;">Reset Password</button>
+                            <button onclick="quickLogin('${user.username}')" class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">Try Login</button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        // Fill reset form with username
+        function fillResetForm(username) {
+            document.getElementById('reset-username').value = username;
+            document.getElementById('reset-password').focus();
+            document.getElementById('reset-password').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Quick login attempt with common passwords
+        async function quickLogin(username) {
+            const commonPasswords = ['password123', 'password', 'admin', 'test', '123456', 'user'];
+            
+            for (let password of commonPasswords) {
+                try {
+                    const response = await fetch('/api/users/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, password }),
+                    });
+
+                    if (response.ok) {
+                        const user = await response.json();
+                        sessionStorage.setItem('loggedInUser', JSON.stringify(user));
+                        showMessage(`✅ Login successful! Username: ${username}, Password: ${password}`, 'success');
+                        return;
+                    }
+                } catch (error) {
+                    // Continue to next password
+                }
+            }
+            
+            showMessage(`❌ Could not login as ${username} with common passwords. Try manual password reset.`, 'error');
+        }
+
+        // Reset user password
+        async function resetPassword(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('reset-username').value;
+            const newPassword = document.getElementById('reset-password').value;
+            
+            try {
+                const response = await fetch('/api/debug/reset-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, newPassword })
+                });
+                
+                if (response.ok) {
+                    const message = await response.text();
+                    showMessage(`${message}. New password: ${newPassword}`, 'success');
+                    
+                    // Clear form
+                    document.getElementById('reset-username').value = '';
+                    document.getElementById('reset-password').value = '';
+                } else {
+                    const errorText = await response.text();
+                    showMessage(`Error: ${errorText}`, 'error');
+                }
+            } catch (error) {
+                showMessage(`Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Create quick user
+        async function createQuickUser(event) {
+            event.preventDefault();
+            
+            const userData = {
+                username: document.getElementById('quick-username').value,
+                password: document.getElementById('quick-password').value,
+                role: document.getElementById('quick-role').value,
+                fullName: document.getElementById('quick-fullname').value || 'Test User'
+            };
+            
+            try {
+                const response = await fetch('/api/debug/create-test-user', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(userData)
+                });
+                
+                if (response.ok) {
+                    const user = await response.json();
+                    showMessage(`User created successfully! Username: ${userData.username}, Password: ${userData.password}`, 'success');
+                    
+                    // Refresh users list
+                    loadUsers();
+                    
+                    // Clear form
+                    document.getElementById('quick-username').value = '';
+                    document.getElementById('quick-fullname').value = '';
+                } else {
+                    const errorText = await response.text();
+                    showMessage(`Error: ${errorText}`, 'error');
+                }
+            } catch (error) {
+                showMessage(`Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Show message function
+        function showMessage(text, type = 'info') {
+            const messageContainer = document.getElementById('message-container');
+            const messageText = document.getElementById('message-text');
+            
+            messageText.textContent = text;
+            messageContainer.className = `message-container ${type}`;
+            messageContainer.style.display = 'block';
+            
+            setTimeout(() => {
+                if (type !== 'success') {
+                    messageContainer.style.display = 'none';
+                }
+            }, 5000);
+        }
+
+        // Auto-load users on page load
+        window.addEventListener('load', () => {
+            loadUsers();
+        });
+    </script>
+</body>
+</html>

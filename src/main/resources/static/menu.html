@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - StarkBites</title>
+    
+    <!-- === IDHU THAAN PUTHU 100% FIX (Line 8) === -->
+    <link rel="stylesheet" href="style_theme.css"> 
+    <!-- ========================================== -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+    <!-- CHATBOT SCRIPT -->
+    <script src="chatbot.js" defer></script>
+</head>
+<body>
+    <div class="loader-wrapper"><div class="loader"></div></div>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="/" class="logo">StarkBites</a>
+            <nav>
+                <a href="cart.html" class="btn">View Cart</a>
+                <a href="/" class="btn btn-secondary">Back to Restaurants</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Restaurant Details -->
+        <section id="restaurant-info" class="hero-section">
+            <!-- (menu.js will load <h1> and <p> here) -->
+        </section>
+
+        <!-- AI Summary -->
+        <section id="ai-summary-section" class="ai-summary-container" style="display: none;">
+            <h3>What People Are Saying</h3>
+            <p id="ai-summary-text">Generating summary...</p>
+        </section>
+
+        <!-- Menu List & Search -->
+        <section class="menu-list-section">
+            
+            <div class="menu-header">
+                <h2>Menu</h2>
+                <div class="search-wrapper">
+                    <input type="search" id="menu-search-bar" placeholder="Search menu items (or use mic)...">
+                    <span class="material-icons-outlined search-icon">search</span>
+                    
+                    <button id="voice-search-btn" class="voice-search-btn" title="Search with your voice">
+                        <span class="material-icons-outlined">mic</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="menu-item-container" class="grid-container">
+                <!-- (menu.js will load menu cards here) -->
+            </div>
+            
+            <p id="no-menu-results" class="no-results-message" style="display: none;">
+                No menu items found matching your search.
+            </p>
+        </section>
+
+        <!-- Customer Reviews -->
+        <section class="reviews-section">
+            <h2>Customer Reviews</h2>
+
+            <!-- "ADD REVIEW" FORM -->
+            <div class="review-form-container card">
+                <h3>Add Your Review</h3>
+                <form id="review-form">
+                    <div class="form-group">
+                        <label>Your Rating:</label>
+                        <div class="star-rating-input">
+                            <span class="star-input" data-value="1">☆</span>
+                            <span class="star-input" data-value="2">☆</span>
+                            <span class="star-input" data-value="3">☆</span>
+                            <span class="star-input" data-value="4">☆</span>
+                            <span class="star-input" data-value="5">☆</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="review-comment">Your Comment:</label>
+                        <textarea id="review-comment" rows="4" placeholder="Tell us about the food... (e.g., 'The Ghee Roast Dosa was amazing!')"></textarea>
+                    </div>
+                    <p id="review-error" class="review-error-message" style="display: none;"></p>
+                    <button type="submit" class="btn" id="submit-review-btn">Submit Review</button>
+                </form>
+            </div>
+            <!-- ============================================== -->
+
+            <div id="customer-reviews-container">
+                <p class="loader-text">Loading reviews...</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Page-specific scripts -->
+    <script src="menu.js" defer></script> 
+    <script src="app.js" defer></script> 
+</body>
+</html>
+

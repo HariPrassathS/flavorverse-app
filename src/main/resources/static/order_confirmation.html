@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Confirmed</title>
+    <link rel="stylesheet" href="style_theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="container">
+        <div class="card" style="margin-top: 80px; text-align: center; padding: 50px;">
+            <h1 style="color: var(--primary-green); font-size: 50px;">✔</h1>
+            <h2>Your Order is Confirmed!</h2>
+            <p>Thank you for your order. Your food is being prepared.</p>
+            <p>Your Order ID is: <strong id="order-id">#</strong></p>
+            <br>
+            <a href="/" class="btn">Back to Homepage</a>
+        </div>
+    </main>
+    <script>
+        // Simple script to display the order ID from the URL
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const orderId = params.get('orderId');
+            if(orderId) {
+                document.getElementById('order-id').textContent = '#' + orderId;
+            }
+        });
+    </script>
+</body>
+</html>

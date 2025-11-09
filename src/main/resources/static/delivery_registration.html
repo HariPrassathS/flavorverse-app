@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Partner Registration - StarkBites</title>
+    <link rel="stylesheet" href="style_theme.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="loader-wrapper"><div class="loader"></div></div>
+
+    <header class="main-header delivery-header">
+        <div class="container">
+            <a href="index.html" class="logo">🚚 StarkBites Delivery</a>
+            <nav>
+                <a href="index.html" class="btn btn-secondary">Home</a>
+                <a href="delivery_login.html" class="btn btn-secondary">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="profile-section fade-in-section">
+            <div class="profile-header">
+                <h1>🚚 Join Our Delivery Team</h1>
+                <p>Register as a delivery partner and start earning with StarkBites</p>
+            </div>
+
+            <!-- Registration Form -->
+            <div class="profile-card delivery-card">
+                <h2>📋 Delivery Partner Registration</h2>
+                <p class="security-note">
+                    🔒 All information is securely encrypted and will be used only for delivery operations.
+                </p>
+                
+                <form id="delivery-registration-form" onsubmit="registerDeliveryPartner(event)">
+                    <!-- Personal Information -->
+                    <div class="password-section" style="margin-bottom: 30px;">
+                        <h3>👤 Personal Information</h3>
+                        
+                        <div class="info-grid">
+                            <div class="form-group">
+                                <label for="fullName">Full Name *</label>
+                                <input type="text" id="fullName" name="fullName" required placeholder="Your full legal name">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phoneNo">Phone Number *</label>
+                                <input type="tel" id="phoneNo" name="phoneNo" required placeholder="10-digit mobile number">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address">Address *</label>
+                            <textarea id="address" name="address" rows="3" required placeholder="Your complete address"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="emergencyContact">Emergency Contact</label>
+                            <input type="tel" id="emergencyContact" name="emergencyContact" placeholder="Emergency contact number">
+                        </div>
+                    </div>
+
+                    <!-- Account Information -->
+                    <div class="password-section" style="margin-bottom: 30px;">
+                        <h3>🔑 Account Information</h3>
+                        
+                        <div class="info-grid">
+                            <div class="form-group">
+                                <label for="username">Username *</label>
+                                <input type="text" id="username" name="username" required placeholder="Choose a unique username">
+                                <small>This will be your login username</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="password">Password *</label>
+                                <input type="password" id="password" name="password" required minlength="6" placeholder="Minimum 6 characters">
+                                <small>Choose a strong password</small>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password *</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required minlength="6" placeholder="Re-enter your password">
+                        </div>
+                    </div>
+
+                    <!-- Delivery Information -->
+                    <div class="password-section" style="margin-bottom: 30px;">
+                        <h3>🛵 Delivery Information</h3>
+                        
+                        <div class="info-grid">
+                            <div class="form-group">
+                                <label for="licenseNumber">Driving License Number *</label>
+                                <input type="text" id="licenseNumber" name="licenseNumber" required placeholder="Your driving license number">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="vehicleType">Vehicle Type *</label>
+                                <select id="vehicleType" name="vehicleType" required>
+                                    <option value="">Select your vehicle</option>
+                                    <option value="bike">Motorcycle/Bike</option>
+                                    <option value="scooter">Scooter</option>
+                                    <option value="car">Car</option>
+                                    <option value="cycle">Bicycle</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Terms and Conditions -->
+                    <div class="form-group" style="margin: 30px 0;">
+                        <label style="display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="agreeTerms" required style="width: auto;">
+                            I agree to the Terms and Conditions and Privacy Policy
+                        </label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Register as Delivery Partner</button>
+                        <a href="delivery_login.html" class="btn btn-secondary">Already have an account? Login</a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Information Section -->
+            <div class="profile-card">
+                <h2>🌟 Why Join StarkBites Delivery?</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>💰 Flexible Earnings:</label>
+                        <span>Work when you want, earn based on deliveries</span>
+                    </div>
+                    <div class="info-item">
+                        <label>📱 Easy App:</label>
+                        <span>Simple interface to manage orders and navigation</span>
+                    </div>
+                    <div class="info-item">
+                        <label>🚀 Quick Onboarding:</label>
+                        <span>Start delivering within 24 hours of approval</span>
+                    </div>
+                    <div class="info-item">
+                        <label>🛡️ Insurance Support:</label>
+                        <span>Delivery insurance coverage during working hours</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success/Error Messages -->
+            <div id="message-container" class="message-container" style="display: none;">
+                <div id="message-text"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="delivery_registration.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

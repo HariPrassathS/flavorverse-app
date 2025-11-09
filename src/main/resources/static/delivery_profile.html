@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Partner Profile - StarkBites</title>
+    <link rel="stylesheet" href="style_theme.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="loader-wrapper"><div class="loader"></div></div>
+
+    <header class="main-header delivery-header">
+        <div class="container">
+            <a href="delivery_dashboard.html" class="logo">🚚 StarkBites Delivery</a>
+            <nav>
+                <a href="delivery_dashboard.html" class="btn btn-secondary">Dashboard</a>
+                <a href="delivery_profile.html" class="btn btn-primary">My Profile</a>
+                <a href="#" onclick="logout()" class="btn">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="profile-section fade-in-section">
+            <div class="profile-header">
+                <h1>🚚 Delivery Partner Profile</h1>
+                <p>Manage your delivery partner account and settings</p>
+            </div>
+
+            <!-- Profile Display -->
+            <div id="profile-display" class="profile-card delivery-card">
+                <div class="profile-info">
+                    <div class="delivery-badge">
+                        <span class="status-indicator" id="availability-status">🔴 Offline</span>
+                        <span>Delivery Partner</span>
+                    </div>
+                    <h2 id="display-fullName">Loading...</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Partner ID:</label>
+                            <span id="display-username">Loading...</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Contact Number:</label>
+                            <span id="display-phoneNo">Loading...</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Address:</label>
+                            <span id="display-address">Loading...</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Current Location:</label>
+                            <span id="display-location">Updating...</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Status:</label>
+                            <span id="display-role">Delivery Partner</span>
+                        </div>
+                    </div>
+                    <div class="delivery-actions">
+                        <button onclick="showEditForm()" class="btn btn-primary">Edit Profile</button>
+                        <button onclick="toggleAvailability()" id="availability-btn" class="btn btn-secondary">Go Online</button>
+                        <button onclick="showLocationInfo()" class="btn btn-info">Location Info</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Edit Form -->
+            <div id="profile-edit" class="profile-card delivery-card" style="display: none;">
+                <h2>Edit Delivery Profile</h2>
+                <form id="profile-form" onsubmit="updateProfile(event)">
+                    <div class="form-group">
+                        <label for="fullName">Full Name:</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phoneNo">Contact Number:</label>
+                        <input type="text" id="phoneNo" name="phoneNo" required>
+                        <small>This number will be used for customer contact</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Home Address:</label>
+                        <textarea id="address" name="address" rows="3" required></textarea>
+                    </div>
+
+                    <div class="password-section delivery-password">
+                        <h3>🔑 Change Password (Optional)</h3>
+                        <p class="security-note">Update your delivery account password for security.</p>
+                        
+                        <div class="form-group">
+                            <label for="newPassword">New Password:</label>
+                            <input type="password" id="newPassword" name="newPassword" minlength="6">
+                            <small>Leave empty to keep current password</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm New Password:</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                        <button type="button" onclick="cancelEdit()" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Location Information Modal -->
+            <div id="location-info-modal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close" onclick="closeLocationInfo()">&times;</span>
+                    <h3>📍 Location Information</h3>
+                    <div class="location-stats">
+                        <div class="stat-item">
+                            <label>Current Latitude:</label>
+                            <span id="current-lat">Updating...</span>
+                        </div>
+                        <div class="stat-item">
+                            <label>Current Longitude:</label>
+                            <span id="current-lng">Updating...</span>
+                        </div>
+                        <div class="stat-item">
+                            <label>GPS Update:</label>
+                            <span id="gps-status">Every 15 seconds</span>
+                        </div>
+                        <div class="stat-item">
+                            <label>Location Accuracy:</label>
+                            <span id="location-accuracy">High</span>
+                        </div>
+                    </div>
+                    <div class="location-actions">
+                        <button onclick="updateLocationNow()" class="btn btn-primary">Update Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success/Error Messages -->
+            <div id="message-container" class="message-container" style="display: none;">
+                <div id="message-text"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="delivery_profile.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

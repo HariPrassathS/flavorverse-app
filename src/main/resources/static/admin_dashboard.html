@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - StarkBites</title>
+    <link rel="stylesheet" href="style_theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <a href="/admin_dashboard.html" class="logo">StarkBites Admin</a>
+            <nav>
+                <a href="admin_dashboard.html" class="btn btn-primary">Dashboard</a>
+                <a href="manage_restaurants.html" class="btn btn-secondary">Restaurants</a>
+                <a href="manage_menu.html" class="btn btn-secondary">Menu</a>
+                <a href="admin_reviews.html" class="btn btn-secondary">Reviews</a>
+                <a href="admin_profile.html" class="btn btn-secondary">My Profile</a>
+                <a href="#" onclick="logout()" class="btn">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero-section">
+            <h1>Admin Control Panel</h1>
+            <p>Select an option below to manage the platform.</p>
+        </section>
+
+        <section class="grid-container" style="max-width: 1200px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); margin: 40px auto;">
+            <a href="manage_restaurants.html" class="card" style="text-decoration: none; color: inherit; text-align: center; padding: 40px;">
+                <h2 style="font-size: 3rem;">🍽️</h2>
+                <h3>Manage Restaurants</h3>
+                <p>Add, edit, or delete restaurants and menus.</p>
+            </a>
+
+            <a href="admin.html" class="card" style="text-decoration: none; color: inherit; text-align: center; padding: 40px;">
+                <h2 style="font-size: 3rem;">📋</h2>
+                <h3>View All Orders</h3>
+                <p>See all customer orders and update status.</p>
+            </a>
+
+            <a href="admin_reviews.html" class="card" style="text-decoration: none; color: inherit; text-align: center; padding: 40px;">
+                <h2 style="font-size: 3rem;">⭐</h2>
+                <h3>Manage Reviews</h3>
+                <p>View all customer reviews for all restaurants.</p>
+            </a>
+
+            <a href="admin_profile.html" class="card" style="text-decoration: none; color: inherit; text-align: center; padding: 40px;">
+                <h2 style="font-size: 3rem;">👤</h2>
+                <h3>My Profile</h3>
+                <p>Manage your administrator account settings.</p>
+            </a>
+        </section>
+    </main>
+    <script>
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = '/';
+        }
+    </script>
+</body>
+</html>

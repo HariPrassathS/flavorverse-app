@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StarkBites - Discover & Order</title>
+
+    <link rel="stylesheet" href="style_theme.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+
+    <div class="loader-wrapper"><div class="loader"></div></div>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="/" class="logo">StarkBites</a>
+            <nav>
+                </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero-section">
+            <h1>Discover your next favorite meal.</h1>
+            <p>Order from the best local restaurants with just a few clicks.</p>
+        </section>
+
+        <section class="restaurant-list-section">
+            <h2>Restaurants</h2>
+
+            <div class="form-group" style="margin-bottom: 30px; max-width: 500px;">
+                <input type="text" id="search-bar" placeholder="Search for restaurants..." onkeyup="searchRestaurants()">
+            </div>
+
+            <div id="restaurant-list-container" class="grid-container">
+                </div>
+        </section>
+    </main>
+
+    <script src="home.js" defer></script> 
+    <script src="app.js" defer></script> 
+</body>
+</html>

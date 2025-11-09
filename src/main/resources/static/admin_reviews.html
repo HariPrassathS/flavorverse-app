@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Reviews - StarkBites Admin</title>
+    <link rel="stylesheet" href="style_theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <a href="/admin_dashboard.html" class="logo">StarkBites Admin</a>
+            <nav>
+                <a href="#" onclick="logout()" class="btn btn-secondary">Logout</a>
+                <a href="/admin_dashboard.html" class="btn btn-secondary">Back to Dashboard</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="admin-section card" style="margin-top: 40px; padding: 30px;">
+            <h1 style="text-align: center; margin-bottom: 30px;">All Customer Reviews</h1>
+            <div id="reviews-container">
+                <p>Loading reviews...</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="admin_reviews.js" defer></script>
+</body>
+</html>

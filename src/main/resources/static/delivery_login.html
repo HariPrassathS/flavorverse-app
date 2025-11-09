@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Partner Login - StarkBites</title>
+    <link rel="stylesheet" href="style_theme.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="delivery-login-body">
+    <!-- Animated Background -->
+    <div class="animated-background">
+        <div class="delivery-truck-animation">
+            <i class="fas fa-truck"></i>
+        </div>
+        <div class="floating-elements">
+            <div class="floating-icon"><i class="fas fa-box"></i></div>
+            <div class="floating-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="floating-icon"><i class="fas fa-clock"></i></div>
+            <div class="floating-icon"><i class="fas fa-star"></i></div>
+        </div>
+    </div>
+
+    <!-- Top Navigation -->
+    <nav class="delivery-nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-utensils"></i>
+                <span>StarkBites</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="delivery_registration.html" class="nav-link register-link">
+                    <i class="fas fa-user-plus"></i> Join Us
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="delivery-login-main">
+        <div class="login-wrapper">
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <div class="hero-content">
+                    <div class="hero-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h1>Welcome Back, Delivery Hero!</h1>
+                    <p>Your customers are waiting. Let's get you on the road to success.</p>
+                    
+                    <!-- Quick Stats -->
+                    <div class="quick-stats">
+                        <div class="stat">
+                            <i class="fas fa-users"></i>
+                            <span>1000+ Partners</span>
+                        </div>
+                        <div class="stat">
+                            <i class="fas fa-clock"></i>
+                            <span>24/7 Support</span>
+                        </div>
+                        <div class="stat">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span>Instant Payouts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Login Form Section -->
+            <div class="form-section">
+                <div class="login-card">
+                    <div class="card-header">
+                        <div class="login-icon">
+                            <i class="fas fa-truck-loading"></i>
+                        </div>
+                        <h2>Partner Login</h2>
+                        <p>Access your delivery dashboard</p>
+                    </div>
+                    
+                    <form id="delivery-login-form" onsubmit="handleLogin(event)" class="login-form">
+                        <div class="input-group">
+                            <div class="input-wrapper">
+                                <i class="fas fa-user input-icon"></i>
+                                <input 
+                                    type="text" 
+                                    id="username" 
+                                    name="username" 
+                                    required 
+                                    autocomplete="username" 
+                                    placeholder="Enter your username"
+                                    class="form-input"
+                                >
+                                <label for="username" class="floating-label">Username</label>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <div class="input-wrapper">
+                                <i class="fas fa-lock input-icon"></i>
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    name="password" 
+                                    required 
+                                    autocomplete="current-password" 
+                                    placeholder="Enter your password"
+                                    class="form-input"
+                                >
+                                <label for="password" class="floating-label">Password</label>
+                                <button type="button" class="password-toggle" onclick="togglePassword()">
+                                    <i class="fas fa-eye" id="password-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Remember Me & Forgot Password -->
+                        <div class="form-options">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" id="remember-me">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">Remember me</span>
+                            </label>
+                            <a href="#" class="forgot-password" onclick="showForgotPassword()">
+                                Forgot password?
+                            </a>
+                        </div>
+                        
+                        <button type="submit" class="login-button" id="login-btn">
+                            <span class="button-text">
+                                <i class="fas fa-sign-in-alt"></i>
+                                Login to Dashboard
+                            </span>
+                            <div class="button-loading" style="display: none;">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                Signing in...
+                            </div>
+                        </button>
+                    </form>
+                    
+                    <!-- Social Login Options (Future Feature) -->
+                    <div class="social-login">
+                        <div class="divider">
+                            <span>Or continue with</span>
+                        </div>
+                        <div class="social-buttons">
+                            <button class="social-btn google-btn" onclick="showComingSoon()">
+                                <i class="fab fa-google"></i>
+                                Google
+                            </button>
+                            <button class="social-btn phone-btn" onclick="showComingSoon()">
+                                <i class="fas fa-phone"></i>
+                                Phone
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Registration CTA -->
+                    <div class="register-cta">
+                        <p>New to StarkBites Delivery?</p>
+                        <a href="delivery_registration.html" class="register-button">
+                            <i class="fas fa-user-plus"></i>
+                            Join Our Delivery Team
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Trust Indicators -->
+                <div class="trust-indicators">
+                    <div class="trust-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Bank-level Security</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Instant Access</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-headset"></i>
+                        <span>24/7 Support</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success/Error Messages -->
+    <div id="message-toast" class="message-toast" style="display: none;">
+        <div class="toast-content">
+            <div class="toast-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="toast-text">
+                <div class="toast-title"></div>
+                <div class="toast-message"></div>
+            </div>
+            <button class="toast-close" onclick="hideToast()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgot-password-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-key"></i> Reset Password</h3>
+                <button class="modal-close" onclick="hideForgotPassword()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Enter your username to reset your password:</p>
+                <div class="input-wrapper">
+                    <i class="fas fa-user input-icon"></i>
+                    <input type="text" id="reset-username" placeholder="Enter your username" class="form-input">
+                </div>
+                <button class="reset-button" onclick="requestPasswordReset()">
+                    <i class="fas fa-paper-plane"></i>
+                    Send Reset Instructions
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="delivery_login.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

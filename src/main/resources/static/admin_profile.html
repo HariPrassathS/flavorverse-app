@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Profile - StarkBites</title>
+    <link rel="stylesheet" href="style_theme.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="loader-wrapper"><div class="loader"></div></div>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="admin.html" class="logo">StarkBites Admin</a>
+            <nav>
+                <a href="admin_dashboard.html" class="btn btn-secondary">Dashboard</a>
+                <a href="manage_restaurants.html" class="btn btn-secondary">Restaurants</a>
+                <a href="manage_menu.html" class="btn btn-secondary">Menu</a>
+                <a href="admin_reviews.html" class="btn btn-secondary">Reviews</a>
+                <a href="admin_profile.html" class="btn btn-primary">My Profile</a>
+                <a href="#" onclick="logout()" class="btn">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="profile-section fade-in-section">
+            <div class="profile-header">
+                <h1>Admin Profile</h1>
+                <p>Manage your administrator account information</p>
+            </div>
+
+            <!-- Profile Display -->
+            <div id="profile-display" class="profile-card admin-card">
+                <div class="profile-info">
+                    <div class="admin-badge">
+                        <span>🛡️ Administrator</span>
+                    </div>
+                    <h2 id="display-fullName">Loading...</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Username:</label>
+                            <span id="display-username">Loading...</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Contact Number:</label>
+                            <span id="display-phoneNo">Loading...</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Office Address:</label>
+                            <span id="display-address">Loading...</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Role:</label>
+                            <span id="display-role">Administrator</span>
+                        </div>
+                    </div>
+                    <div class="admin-actions">
+                        <button onclick="showEditForm()" class="btn btn-primary">Edit Profile</button>
+                        <button onclick="showSystemInfo()" class="btn btn-secondary">System Info</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Edit Form -->
+            <div id="profile-edit" class="profile-card admin-card" style="display: none;">
+                <h2>Edit Admin Profile</h2>
+                <form id="profile-form" onsubmit="updateProfile(event)">
+                    <div class="form-group">
+                        <label for="fullName">Full Name:</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phoneNo">Contact Number:</label>
+                        <input type="text" id="phoneNo" name="phoneNo" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Office Address:</label>
+                        <textarea id="address" name="address" rows="3" required></textarea>
+                    </div>
+
+                    <div class="password-section admin-password">
+                        <h3>🔐 Change Admin Password (Optional)</h3>
+                        <p class="security-note">For security reasons, please verify your current password before setting a new one.</p>
+                        
+                        <div class="form-group">
+                            <label for="currentPassword">Current Password:</label>
+                            <input type="password" id="currentPassword" name="currentPassword">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="newPassword">New Password:</label>
+                            <input type="password" id="newPassword" name="newPassword" minlength="8">
+                            <small>Must be at least 8 characters long</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm New Password:</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                        <button type="button" onclick="cancelEdit()" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- System Information Modal -->
+            <div id="system-info-modal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close" onclick="closeSystemInfo()">&times;</span>
+                    <h3>System Information</h3>
+                    <div class="system-stats">
+                        <div class="stat-item">
+                            <label>Platform:</label>
+                            <span>FlavorVerse 3.0</span>
+                        </div>
+                        <div class="stat-item">
+                            <label>Your Admin Level:</label>
+                            <span id="admin-level">Super Administrator</span>
+                        </div>
+                        <div class="stat-item">
+                            <label>Last Login:</label>
+                            <span id="last-login">Just now</span>
+                        </div>
+                        <div class="stat-item">
+                            <label>Account Created:</label>
+                            <span>System Administrator</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success/Error Messages -->
+            <div id="message-container" class="message-container" style="display: none;">
+                <div id="message-text"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="admin_profile.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

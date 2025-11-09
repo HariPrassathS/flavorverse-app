@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlavorVerse - API Test Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        .test-section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+        }
+        .test-section h2 {
+            color: #333;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn {
+            background: #2ecc71;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .btn:hover {
+            background: #27ae60;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: #667eea;
+        }
+        .btn-secondary:hover {
+            background: #5568d3;
+        }
+        .result {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 2px solid #e9ecef;
+        }
+        .status {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 1rem;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .status.loading {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .card {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+        }
+        .card h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        .card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #2ecc71;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-left: 1rem;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .error-msg {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+        .success-msg {
+            color: #27ae60;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <i class="fas fa-flask"></i>
+            FlavorVerse API Test Page
+        </h1>
+        <p class="subtitle">Test your backend API endpoints and verify database connectivity</p>
+
+        <!-- Test 1: Restaurants API -->
+        <div class="test-section">
+            <h2>
+                <i class="fas fa-store"></i>
+                Test Restaurants API
+                <span id="restaurants-status" class="status loading" style="display: none;">Loading...</span>
+            </h2>
+            <button class="btn" onclick="testRestaurants()">
+                <i class="fas fa-play"></i> Test /api/restaurants
+            </button>
+            <button class="btn btn-secondary" onclick="clearResult('restaurants-result')">
+                <i class="fas fa-eraser"></i> Clear
+            </button>
+            <div id="restaurants-result" class="result" style="display: none;"></div>
+        </div>
+
+        <!-- Test 2: Orders API -->
+        <div class="test-section">
+            <h2>
+                <i class="fas fa-receipt"></i>
+                Test Orders API
+                <span id="orders-status" class="status loading" style="display: none;">Loading...</span>
+            </h2>
+            <button class="btn" onclick="testOrders()">
+                <i class="fas fa-play"></i> Test /api/orders
+            </button>
+            <button class="btn btn-secondary" onclick="clearResult('orders-result')">
+                <i class="fas fa-eraser"></i> Clear
+            </button>
+            <div id="orders-result" class="result" style="display: none;"></div>
+        </div>
+
+        <!-- Test 3: Users API -->
+        <div class="test-section">
+            <h2>
+                <i class="fas fa-users"></i>
+                Test Users API
+                <span id="users-status" class="status loading" style="display: none;">Loading...</span>
+            </h2>
+            <button class="btn" onclick="testUsers()">
+                <i class="fas fa-play"></i> Test /api/users
+            </button>
+            <button class="btn btn-secondary" onclick="clearResult('users-result')">
+                <i class="fas fa-eraser"></i> Clear
+            </button>
+            <div id="users-result" class="result" style="display: none;"></div>
+        </div>
+
+        <!-- Test 4: Delivery API -->
+        <div class="test-section">
+            <h2>
+                <i class="fas fa-truck"></i>
+                Test Delivery API
+                <span id="delivery-status" class="status loading" style="display: none;">Loading...</span>
+            </h2>
+            <button class="btn" onclick="testDelivery()">
+                <i class="fas fa-play"></i> Test /api/delivery/orders
+            </button>
+            <button class="btn btn-secondary" onclick="clearResult('delivery-result')">
+                <i class="fas fa-eraser"></i> Clear
+            </button>
+            <div id="delivery-result" class="result" style="display: none;"></div>
+        </div>
+
+        <!-- Test All -->
+        <div class="test-section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+            <h2 style="color: white;">
+                <i class="fas fa-rocket"></i>
+                Run All Tests
+            </h2>
+            <button class="btn" onclick="runAllTests()" style="background: white; color: #667eea;">
+                <i class="fas fa-play-circle"></i> Run All Tests
+            </button>
+        </div>
+    </div>
+
+    <script>
+        async function testRestaurants() {
+            const resultDiv = document.getElementById('restaurants-result');
+            const statusDiv = document.getElementById('restaurants-status');
+            
+            resultDiv.style.display = 'block';
+            statusDiv.style.display = 'inline-block';
+            statusDiv.className = 'status loading';
+            statusDiv.textContent = 'Loading...';
+            
+            resultDiv.innerHTML = '<div class="spinner"></div> Fetching restaurants...';
+            
+            try {
+                const response = await fetch('/api/restaurants');
+                const data = await response.json();
+                
+                statusDiv.className = 'status success';
+                statusDiv.textContent = `✓ Success (${data.length} found)`;
+                
+                resultDiv.innerHTML = `
+                    <div class="success-msg">✓ Successfully fetched ${data.length} restaurants</div>
+                    <div class="grid">
+                        ${data.slice(0, 6).map(r => `
+                            <div class="card">
+                                <h4>${r.name}</h4>
+                                <p><strong>ID:</strong> ${r.id}</p>
+                                <p><strong>Cuisine:</strong> ${r.cuisine || r.category || 'N/A'}</p>
+                                <p><strong>Rating:</strong> ${r.rating || 'N/A'}</p>
+                                <p><strong>Min Order:</strong> $${r.minimumOrder || r.minOrder || 'N/A'}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <details style="margin-top: 1rem;">
+                        <summary style="cursor: pointer; font-weight: 600; margin-bottom: 0.5rem;">View JSON Response</summary>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </details>
+                `;
+            } catch (error) {
+                statusDiv.className = 'status error';
+                statusDiv.textContent = '✗ Failed';
+                
+                resultDiv.innerHTML = `
+                    <div class="error-msg">✗ Error: ${error.message}</div>
+                    <p style="margin-top: 1rem; color: #666;">
+                        <strong>Possible causes:</strong><br>
+                        1. Backend server is not running<br>
+                        2. Endpoint /api/restaurants doesn't exist<br>
+                        3. Database connection error<br>
+                        4. CORS issue
+                    </p>
+                `;
+            }
+        }
+
+        async function testOrders() {
+            const resultDiv = document.getElementById('orders-result');
+            const statusDiv = document.getElementById('orders-status');
+            
+            resultDiv.style.display = 'block';
+            statusDiv.style.display = 'inline-block';
+            statusDiv.className = 'status loading';
+            statusDiv.textContent = 'Loading...';
+            
+            resultDiv.innerHTML = '<div class="spinner"></div> Fetching orders...';
+            
+            try {
+                const response = await fetch('/api/orders');
+                const data = await response.json();
+                
+                statusDiv.className = 'status success';
+                statusDiv.textContent = `✓ Success (${data.length} found)`;
+                
+                resultDiv.innerHTML = `
+                    <div class="success-msg">✓ Successfully fetched ${data.length} orders</div>
+                    <details style="margin-top: 1rem;">
+                        <summary style="cursor: pointer; font-weight: 600;">View JSON Response</summary>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </details>
+                `;
+            } catch (error) {
+                statusDiv.className = 'status error';
+                statusDiv.textContent = '✗ Failed';
+                resultDiv.innerHTML = `<div class="error-msg">✗ Error: ${error.message}</div>`;
+            }
+        }
+
+        async function testUsers() {
+            const resultDiv = document.getElementById('users-result');
+            const statusDiv = document.getElementById('users-status');
+            
+            resultDiv.style.display = 'block';
+            statusDiv.style.display = 'inline-block';
+            statusDiv.className = 'status loading';
+            statusDiv.textContent = 'Loading...';
+            
+            resultDiv.innerHTML = '<div class="spinner"></div> Fetching users...';
+            
+            try {
+                const response = await fetch('/api/users');
+                const data = await response.json();
+                
+                statusDiv.className = 'status success';
+                statusDiv.textContent = `✓ Success (${data.length} found)`;
+                
+                resultDiv.innerHTML = `
+                    <div class="success-msg">✓ Successfully fetched ${data.length} users</div>
+                    <details style="margin-top: 1rem;">
+                        <summary style="cursor: pointer; font-weight: 600;">View JSON Response</summary>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </details>
+                `;
+            } catch (error) {
+                statusDiv.className = 'status error';
+                statusDiv.textContent = '✗ Failed';
+                resultDiv.innerHTML = `<div class="error-msg">✗ Error: ${error.message}</div>`;
+            }
+        }
+
+        async function testDelivery() {
+            const resultDiv = document.getElementById('delivery-result');
+            const statusDiv = document.getElementById('delivery-status');
+            
+            resultDiv.style.display = 'block';
+            statusDiv.style.display = 'inline-block';
+            statusDiv.className = 'status loading';
+            statusDiv.textContent = 'Loading...';
+            
+            resultDiv.innerHTML = '<div class="spinner"></div> Fetching delivery orders...';
+            
+            try {
+                const response = await fetch('/api/delivery/orders');
+                const data = await response.json();
+                
+                statusDiv.className = 'status success';
+                statusDiv.textContent = `✓ Success (${data.length} found)`;
+                
+                resultDiv.innerHTML = `
+                    <div class="success-msg">✓ Successfully fetched ${data.length} delivery orders</div>
+                    <details style="margin-top: 1rem;">
+                        <summary style="cursor: pointer; font-weight: 600;">View JSON Response</summary>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </details>
+                `;
+            } catch (error) {
+                statusDiv.className = 'status error';
+                statusDiv.textContent = '✗ Failed';
+                resultDiv.innerHTML = `<div class="error-msg">✗ Error: ${error.message}</div>`;
+            }
+        }
+
+        function clearResult(resultId) {
+            const resultDiv = document.getElementById(resultId);
+            resultDiv.style.display = 'none';
+            resultDiv.innerHTML = '';
+            
+            const statusId = resultId.replace('-result', '-status');
+            const statusDiv = document.getElementById(statusId);
+            statusDiv.style.display = 'none';
+        }
+
+        async function runAllTests() {
+            await testRestaurants();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            await testOrders();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            await testUsers();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            await testDelivery();
+        }
+    </script>
+</body>
+</html>

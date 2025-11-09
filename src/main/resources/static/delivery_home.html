@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Dashboard - StarkBites</title>
+    <link rel="stylesheet" href="style_theme.css">
+    <link rel="stylesheet" href="home_pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="delivery-home-body">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-icon">
+                <i class="fas fa-truck fa-spin"></i>
+            </div>
+            <h3>Loading Dashboard...</h3>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="delivery-header">
+        <nav class="delivery-nav">
+            <div class="nav-left">
+                <div class="nav-brand">
+                    <i class="fas fa-utensils brand-icon"></i>
+                    <span class="brand-text">StarkBites</span>
+                    <span class="brand-sub">Delivery</span>
+                </div>
+            </div>
+            
+            <div class="nav-center">
+                <div class="status-toggle">
+                    <span class="status-label">Status:</span>
+                    <div class="status-switch" onclick="toggleDeliveryStatus()">
+                        <input type="checkbox" id="delivery-status" checked>
+                        <label for="delivery-status" class="switch-label">
+                            <span class="switch-text" data-on="Online" data-off="Offline"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <div class="nav-actions">
+                    <button class="nav-btn notification-btn" onclick="toggleNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    
+                    <div class="profile-menu" onclick="toggleProfileMenu()">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="profile-info">
+                            <span class="profile-name" id="partner-name">John Doe</span>
+                            <span class="profile-role">Delivery Partner</span>
+                        </div>
+                        <i class="fas fa-chevron-down profile-arrow"></i>
+                        
+                        <div class="profile-dropdown" id="profile-dropdown">
+                            <a href="delivery_profile.html" class="dropdown-item">
+                                <i class="fas fa-user-circle"></i> My Profile
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-chart-line"></i> Earnings
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-cog"></i> Settings
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item logout-item" onclick="handleLogout()">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="delivery-main">
+        <!-- Quick Stats Dashboard -->
+        <section class="stats-section">
+            <div class="stats-container">
+                <div class="stat-card earnings-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="today-earnings">$0.00</div>
+                        <div class="stat-label">Today's Earnings</div>
+                        <div class="stat-change positive">+15.2%</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card orders-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="total-orders">0</div>
+                        <div class="stat-label">Orders Completed</div>
+                        <div class="stat-change positive">+3 today</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card rating-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="avg-rating">4.8</div>
+                        <div class="stat-label">Average Rating</div>
+                        <div class="stat-change positive">+0.2</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card time-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="online-time">0h 0m</div>
+                        <div class="stat-label">Online Time</div>
+                        <div class="stat-change">Today</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Active Orders & Available Orders -->
+        <section class="orders-section">
+            <div class="orders-container">
+                <!-- Active Orders -->
+                <div class="orders-panel active-orders-panel">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-route"></i> Active Deliveries</h3>
+                        <span class="panel-count" id="active-count">0</span>
+                    </div>
+                    <div class="orders-list" id="active-orders">
+                        <div class="empty-state">
+                            <i class="fas fa-truck"></i>
+                            <p>No active deliveries</p>
+                            <span>Available orders will appear on the right</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Available Orders -->
+                <div class="orders-panel available-orders-panel">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-list-alt"></i> Available Orders</h3>
+                        <button class="refresh-btn" onclick="refreshOrders()">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                    <div class="orders-list" id="available-orders">
+                        <!-- Sample orders will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="actions-section">
+            <div class="actions-container">
+                <div class="action-card map-card" onclick="openMapView()">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h4>View Map</h4>
+                    <p>See delivery locations</p>
+                </div>
+                
+                <div class="action-card earnings-card" onclick="openEarnings()">
+                    <i class="fas fa-chart-line"></i>
+                    <h4>Earnings Report</h4>
+                    <p>Track your income</p>
+                </div>
+                
+                <div class="action-card support-card" onclick="openSupport()">
+                    <i class="fas fa-headset"></i>
+                    <h4>Support</h4>
+                    <p>Get help instantly</p>
+                </div>
+                
+                <div class="action-card profile-card" onclick="openProfile()">
+                    <i class="fas fa-user-cog"></i>
+                    <h4>Profile</h4>
+                    <p>Manage account</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Order Detail Modal -->
+    <div id="order-modal" class="modal-overlay">
+        <div class="modal-content order-modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-receipt"></i> Order Details</h3>
+                <button class="modal-close" onclick="closeOrderModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="order-modal-body">
+                <!-- Order details will be populated here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeOrderModal()">Close</button>
+                <button class="btn-primary" id="order-action-btn" onclick="handleOrderAction()">
+                    Accept Order
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Panel -->
+    <div id="notification-panel" class="notification-panel">
+        <div class="notification-header">
+            <h4><i class="fas fa-bell"></i> Notifications</h4>
+            <button class="close-notifications" onclick="toggleNotifications()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="notification-list">
+            <div class="notification-item">
+                <div class="notification-icon success">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="notification-content">
+                    <p>Order #1234 completed successfully</p>
+                    <span class="notification-time">2 minutes ago</span>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon info">
+                    <i class="fas fa-info"></i>
+                </div>
+                <div class="notification-content">
+                    <p>New order available in your area</p>
+                    <span class="notification-time">5 minutes ago</span>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon warning">
+                    <i class="fas fa-exclamation"></i>
+                </div>
+                <div class="notification-content">
+                    <p>Earnings report ready for download</p>
+                    <span class="notification-time">1 hour ago</span>
+                </div>
+            </div>
+        </div>
+        <div class="notification-footer">
+            <button class="btn-text">Mark All Read</button>
+            <button class="btn-text">View All</button>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="delivery_home.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StarkBites - Food Delivery</title>
+    <link rel="stylesheet" href="style_theme.css">
+    <link rel="stylesheet" href="home_pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="customer-home-body">
+    <!-- Loading Screen -->
+    <div id="customer-loading" class="customer-loading-screen">
+        <div class="loading-content">
+            <div class="food-animation">
+                <i class="fas fa-utensils"></i>
+            </div>
+            <h3>Preparing Your Experience...</h3>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="customer-header">
+        <nav class="customer-nav">
+            <div class="nav-left">
+                <div class="brand-logo">
+                    <i class="fas fa-utensils"></i>
+                    <span class="brand-name">StarkBites</span>
+                    <span class="brand-tagline">Fast • Fresh • Delivered</span>
+                </div>
+            </div>
+            
+            <div class="nav-center">
+                <div class="location-selector" onclick="openLocationSelector()">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span class="location-text" id="current-location">Downtown Area</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search for restaurants, cuisine, dishes..." id="main-search">
+                    <button class="search-btn" onclick="performSearch()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                
+                <button class="nav-btn cart-btn" onclick="openCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </button>
+                
+                <div class="user-menu" onclick="toggleUserMenu()">
+                    <div class="user-avatar" id="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-info" id="user-info">
+                        <span class="user-name" id="user-name">Guest</span>
+                        <span class="user-status">Not logged in</span>
+                    </div>
+                    <i class="fas fa-chevron-down user-arrow"></i>
+                    
+                    <div class="user-dropdown" id="user-dropdown">
+                        <!-- Will be populated based on login status -->
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="customer-main">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Delicious Food, <span class="highlight">Delivered Fast</span></h1>
+                    <p>Discover amazing restaurants and get your favorite dishes delivered to your door in minutes</p>
+                    
+                    <div class="hero-search">
+                        <div class="search-box">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" placeholder="What are you craving today?" class="hero-search-input">
+                            <button class="hero-search-btn">
+                                Search Food <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-features">
+                        <div class="feature">
+                            <i class="fas fa-clock"></i>
+                            <span>30 min delivery</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Safe & hygienic</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-star"></i>
+                            <span>Top rated restaurants</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero-image">
+                    <div class="food-carousel">
+                        <div class="food-item active">
+                            <i class="fas fa-pizza-slice"></i>
+                        </div>
+                        <div class="food-item">
+                            <i class="fas fa-hamburger"></i>
+                        </div>
+                        <div class="food-item">
+                            <i class="fas fa-drumstick-bite"></i>
+                        </div>
+                        <div class="food-item">
+                            <i class="fas fa-ice-cream"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="categories-section">
+            <div class="section-header">
+                <h2>What's on your mind?</h2>
+                <p>Browse by cuisine type</p>
+            </div>
+            
+            <div class="categories-slider">
+                <div class="category-card" onclick="filterByCuisine('pizza')">
+                    <div class="category-icon">
+                        <i class="fas fa-pizza-slice"></i>
+                    </div>
+                    <span class="category-name">Pizza</span>
+                </div>
+                <div class="category-card" onclick="filterByCuisine('burger')">
+                    <div class="category-icon">
+                        <i class="fas fa-hamburger"></i>
+                    </div>
+                    <span class="category-name">Burgers</span>
+                </div>
+                <div class="category-card" onclick="filterByCuisine('asian')">
+                    <div class="category-icon">
+                        <i class="fas fa-bowl-rice"></i>
+                    </div>
+                    <span class="category-name">Asian</span>
+                </div>
+                <div class="category-card" onclick="filterByCuisine('mexican')">
+                    <div class="category-icon">
+                        <i class="fas fa-pepper-hot"></i>
+                    </div>
+                    <span class="category-name">Mexican</span>
+                </div>
+                <div class="category-card" onclick="filterByCuisine('dessert')">
+                    <div class="category-icon">
+                        <i class="fas fa-ice-cream"></i>
+                    </div>
+                    <span class="category-name">Desserts</span>
+                </div>
+                <div class="category-card" onclick="filterByCuisine('healthy')">
+                    <div class="category-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <span class="category-name">Healthy</span>
+                </div>
+                <div class="category-card" onclick="filterByCuisine('coffee')">
+                    <div class="category-icon">
+                        <i class="fas fa-coffee"></i>
+                    </div>
+                    <span class="category-name">Coffee</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Restaurants -->
+        <section class="featured-section">
+            <div class="section-header">
+                <h2>Top restaurants near you</h2>
+                <div class="section-actions">
+                    <button class="filter-btn" onclick="openFilters()">
+                        <i class="fas fa-filter"></i> Filters
+                    </button>
+                    <div class="sort-dropdown">
+                        <select class="sort-select" onchange="sortRestaurants(this.value)">
+                            <option value="rating">Sort by Rating</option>
+                            <option value="delivery-time">Delivery Time</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="popularity">Popularity</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="restaurants-grid" id="restaurants-grid">
+                <!-- Restaurants will be loaded here -->
+            </div>
+            
+            <div class="load-more-container">
+                <button class="load-more-btn" onclick="loadMoreRestaurants()">
+                    <i class="fas fa-plus"></i> Load More Restaurants
+                </button>
+            </div>
+        </section>
+
+        <!-- Quick Order Section -->
+        <section class="quick-order-section">
+            <div class="section-header">
+                <h2>Order again</h2>
+                <p>Your recent favorites</p>
+            </div>
+            
+            <div class="quick-order-slider" id="quick-order-slider">
+                <!-- Recent orders will be populated here -->
+            </div>
+        </section>
+
+        <!-- Promotions Banner -->
+        <section class="promotions-section">
+            <div class="promotion-banner">
+                <div class="banner-content">
+                    <div class="banner-text">
+                        <h3>🎉 Special Offer!</h3>
+                        <p>Get 50% off on your first 3 orders</p>
+                        <span class="promo-code">Use code: STARK50</span>
+                    </div>
+                    <button class="claim-offer-btn" onclick="claimOffer()">
+                        Claim Offer
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Location Selector Modal -->
+    <div id="location-modal" class="modal-overlay">
+        <div class="modal-content location-modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-map-marker-alt"></i> Select Delivery Location</h3>
+                <button class="modal-close" onclick="closeLocationSelector()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="location-search">
+                    <input type="text" placeholder="Search for area, street name..." class="location-input">
+                    <button class="location-search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                
+                <div class="current-location-btn" onclick="useCurrentLocation()">
+                    <i class="fas fa-crosshairs"></i>
+                    <span>Use current location</span>
+                </div>
+                
+                <div class="recent-locations">
+                    <h4>Recent Locations</h4>
+                    <div class="location-item" onclick="selectLocation('Downtown Area')">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Downtown Area</span>
+                    </div>
+                    <div class="location-item" onclick="selectLocation('Midtown District')">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Midtown District</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters Modal -->
+    <div id="filters-modal" class="modal-overlay">
+        <div class="modal-content filters-modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-filter"></i> Filter Restaurants</h3>
+                <button class="modal-close" onclick="closeFilters()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="filter-group">
+                    <h4>Price Range</h4>
+                    <div class="price-filters">
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="budget"> $ (Under $15)
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="mid"> $$ ($15-30)
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="premium"> $$$ ($30+)
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <h4>Rating</h4>
+                    <div class="rating-filters">
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="4.5"> 4.5+ <i class="fas fa-star"></i>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="4"> 4.0+ <i class="fas fa-star"></i>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="3.5"> 3.5+ <i class="fas fa-star"></i>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <h4>Delivery Time</h4>
+                    <div class="time-filters">
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="fast"> Under 30 min
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="normal"> 30-45 min
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="filter-actions">
+                    <button class="clear-filters-btn" onclick="clearFilters()">
+                        Clear All
+                    </button>
+                    <button class="apply-filters-btn" onclick="applyFilters()">
+                        Apply Filters
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shopping Cart Sidebar -->
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-cart"></i> Your Order</h3>
+            <button class="close-cart" onclick="closeCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="cart-content" id="cart-content">
+            <div class="empty-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <p>Your cart is empty</p>
+                <span>Add some delicious items to get started</span>
+            </div>
+        </div>
+        
+        <div class="cart-footer" id="cart-footer" style="display: none;">
+            <div class="cart-total">
+                <span>Total: $<span id="cart-total">0.00</span></span>
+            </div>
+            <button class="checkout-btn" onclick="proceedToCheckout()">
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="customer-toast-container" class="toast-container"></div>
+
+    <script src="customer_home.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

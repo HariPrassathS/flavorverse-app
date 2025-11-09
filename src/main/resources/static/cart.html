@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - StarkBites</title>
+    <link rel="stylesheet" href="style_theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <a href="/" class="logo">StarkBites</a>
+            <nav>
+                <a href="/" class="btn btn-secondary">Back to Restaurants</a>
+            </nav>
+        </div>
+    </header>
+    <main class="container">
+        <section class="cart-section card" style="margin-top: 40px; padding: 30px;">
+            <h1 style="text-align: center; margin-bottom: 30px;">Your Shopping Cart 🛒</h1>
+            <div id="cart-items-container">
+                </div>
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <button id="continue-shopping-btn" class="btn btn-secondary">Continue Shopping</button>
+
+                <div style="text-align: right; font-size: 1.5rem; font-weight: bold;">
+                    Total: ₹<span id="total-price">0.00</span>
+                </div>
+            </div>
+
+            <button id="place-order-btn" class="btn" style="width: 100%;">Place Order</button>
+        </section>
+    </main>
+    <script src="cart.js" defer></script> 
+    <script src="app.js" defer></script> 
+</body>
+</html>

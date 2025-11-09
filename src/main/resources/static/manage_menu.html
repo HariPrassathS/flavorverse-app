@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> 
+    <title>Manage Menu - StarkBites</title>
+    <link rel="stylesheet" href="style_theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    </head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <a href="/admin_dashboard.html" class="logo">StarkBites Admin</a>
+            <nav><a href="/manage_restaurants.html" class="btn btn-secondary">Back to Restaurants</a></nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="admin-section card" style="margin-top: 40px; padding: 30px;">
+            <h1 id="restaurant-name-title" style="text-align: center; margin-bottom: 30px;">Manage Menu for...</h1>
+
+            <div class="form-container card" style="padding: 20px; margin-bottom: 30px;">
+                <h2 id="form-title">Add New Item</h2>
+                <form id="menu-item-form">
+                    <input type="hidden" id="itemId">
+                    <div class="form-group">
+                        <label for="name">Item Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price (₹)</label> <input type="number" id="price" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" id="description" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="imageUrl">Image URL</label>
+                        <input type="text" id="imageUrl" placeholder="https://example.com/image.png">
+                    </div>
+                    
+                    <button type="submit" class="btn" style="width: 100%;">Save Item</button>
+                </form>
+            </div>
+
+            <h2>Current Menu Items</h2>
+            <div id="menu-table-container"></div>
+        </section>
+    </main>
+
+    <script src="manage_menu.js" defer></script>
+</body>
+</html>

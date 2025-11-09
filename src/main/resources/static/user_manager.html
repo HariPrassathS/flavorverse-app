@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management - StarkBites</title>
+    <link rel="stylesheet" href="style_theme.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="loader-wrapper"><div class="loader"></div></div>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">🔧 StarkBites User Manager</a>
+            <nav>
+                <a href="index.html" class="btn btn-secondary">Home</a>
+                <a href="profile_test.html" class="btn btn-secondary">Quick Test</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="profile-section fade-in-section">
+            <div class="profile-header">
+                <h1>🔑 User Management & Testing</h1>
+                <p>Quick access to test accounts and user creation</p>
+            </div>
+
+            <!-- Quick Test Accounts -->
+            <div class="profile-card">
+                <h2>📋 Default Test Accounts</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>🚚 Delivery Partner:</label>
+                        <span><strong>Username:</strong> raja_delivery</span>
+                        <span><strong>Password:</strong> (any password or empty)</span>
+                        <button onclick="quickLogin('raja_delivery', '')" class="btn btn-success" style="margin-top: 10px;">Login as Delivery</button>
+                    </div>
+                    
+                    <div class="info-item">
+                        <label>👤 Test Customer:</label>
+                        <span><strong>Username:</strong> testcustomer</span>
+                        <span><strong>Password:</strong> password123</span>
+                        <button onclick="quickLogin('testcustomer', 'password123')" class="btn btn-primary" style="margin-top: 10px;">Login as Customer</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Create New Test Accounts -->
+            <div class="profile-card">
+                <h2>➕ Create New Test Accounts</h2>
+                
+                <!-- Customer Registration -->
+                <div class="password-section" style="margin-bottom: 30px;">
+                    <h3>👤 Create Test Customer</h3>
+                    <form onsubmit="createCustomer(event)">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                            <div class="form-group">
+                                <label>Username:</label>
+                                <input type="text" id="customer-username" placeholder="e.g., customer1" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Password:</label>
+                                <input type="password" id="customer-password" placeholder="e.g., password123" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Full Name:</label>
+                                <input type="text" id="customer-fullname" placeholder="e.g., John Doe" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Customer Account</button>
+                    </form>
+                </div>
+
+                <!-- Admin Registration -->
+                <div class="password-section" style="margin-bottom: 30px;">
+                    <h3>👑 Create Test Admin</h3>
+                    <form onsubmit="createAdmin(event)">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                            <div class="form-group">
+                                <label>Username:</label>
+                                <input type="text" id="admin-username" placeholder="e.g., admin1" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Password:</label>
+                                <input type="password" id="admin-password" placeholder="e.g., admin123" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Full Name:</label>
+                                <input type="text" id="admin-fullname" placeholder="e.g., Admin User" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-secondary">Create Admin Account</button>
+                    </form>
+                </div>
+
+                <!-- Delivery Partner Registration -->
+                <div class="password-section">
+                    <h3>🚚 Create Test Delivery Partner</h3>
+                    <form onsubmit="createDeliveryPartner(event)">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                            <div class="form-group">
+                                <label>Username:</label>
+                                <input type="text" id="delivery-username" placeholder="e.g., driver1" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Password:</label>
+                                <input type="password" id="delivery-password" placeholder="e.g., driver123" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Full Name:</label>
+                                <input type="text" id="delivery-fullname" placeholder="e.g., Driver Name" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-info">Create Delivery Account</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Reset Existing Passwords -->
+            <div class="profile-card">
+                <h2>🔄 Reset Password for Existing Users</h2>
+                <p class="security-note">If you know the username but forgot the password, you can create a new account with a simple password.</p>
+                
+                <div class="form-group">
+                    <label>Common Test Passwords to Try:</label>
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin: 10px 0;">
+                        <code style="display: block; margin: 5px 0;">password</code>
+                        <code style="display: block; margin: 5px 0;">password123</code>
+                        <code style="display: block; margin: 5px 0;">123456</code>
+                        <code style="display: block; margin: 5px 0;">admin</code>
+                        <code style="display: block; margin: 5px 0;">test</code>
+                        <code style="display: block; margin: 5px 0;">user</code>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <a href="login.html" class="btn btn-primary">Go to Login Page</a>
+                    <a href="register.html" class="btn btn-secondary">Register New Account</a>
+                </div>
+            </div>
+
+            <!-- Success/Error Messages -->
+            <div id="message-container" class="message-container" style="display: none;">
+                <div id="message-text"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="user_manager.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

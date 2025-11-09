@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Dashboard - StarkBites</title>
+    <link rel="stylesheet" href="style_theme.css">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <a href="delivery_dashboard.html" class="logo">🚚 StarkBites Delivery</a>
+            <nav>
+                <a href="delivery_dashboard.html" class="btn btn-primary">Dashboard</a>
+                <a href="delivery_profile.html" class="btn btn-secondary">My Profile</a>
+                <a href="#" onclick="logout()" class="btn">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero-section">
+            <h1 id="welcome-message">Welcome, Delivery Partner!</h1>
+            <p>Your location is being tracked.</p>
+        </section>
+
+        <section class="card" style="margin-top: 30px; padding: 30px;">
+            <h2>Live Status</h2>
+            <p id="status-message" style="font-size: 1.2rem; font-weight: bold; color: var(--primary-green);">
+                TRACKING ACTIVE
+            </p>
+            <p style="margin-top: 15px;">
+                Coordinates: <span id="coords">Waiting for GPS...</span>
+            </p>
+        </section>
+        
+        <section id="orders-list-container" style="margin-top: 30px;">
+            <h2>Your Assigned Orders</h2>
+            <div id="active-orders">
+                </div>
+        </section>
+        
+    </main>
+
+    <script src="delivery_dashboard.js" defer></script>
+</body>
+</html>

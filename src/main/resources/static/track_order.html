@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Your Order - StarkBites</title>
+    <link rel="stylesheet" href="style_theme.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <a href="/" class="logo">StarkBites</a>
+            <nav>
+                <a href="my_orders.html" class="btn btn-secondary">My Orders</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero-section">
+            <h1>Track Your Order</h1>
+            <p>Your order is on its way!</p>
+        </section>
+
+        <section class="card" style="margin-top: 30px; padding: 30px;">
+            <h2>Live Status: <span id="order-status" style="color: var(--primary-green);">...</span></h2>
+            <p>Delivery Partner: <strong id="partner-name">...</strong></p>
+            
+            <div id="map" style="height: 400px; width: 100%; margin-top: 20px; border-radius: 15px;"></div>
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <script src="track_order.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - StarkBites</title>
+    <link rel="stylesheet" href="style_theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <a href="/admin_dashboard.html" class="logo">StarkBites Admin</a>
+            <nav>
+                <a href="#" onclick="logout()" class="btn btn-secondary">Logout</a>
+                <a href="/admin_dashboard.html" class="btn btn-secondary">Back to Dashboard</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="admin-section card" style="margin-top: 40px; padding: 30px;">
+            <h1 style="text-align: center; margin-bottom: 30px;">All Customer Orders</h1>
+            <div id="orders-container">
+                <p>Loading orders...</p>
+            </div>
+        </section>
+    </main>
+
+    <div id="order-details-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h2>Order Details</h2>
+            <div id="modal-body-content">
+                </div>
+        </div>
+    </div>
+
+    <script src="admin.js" defer></script>
+    <script src="app.js" defer></script>
+</body>
+</html>
