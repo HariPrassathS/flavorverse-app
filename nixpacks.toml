@@ -1,8 +1,11 @@
 [phases.setup]
-nixPkgs = ["...", "jdk17"]
+nixPkgs = ["maven", "jdk17"]
 
 [phases.build]
-cmds = ["mvn clean package -DskipTests"]
+cmds = ["mvn clean package -DskipTests -Dmaven.test.skip=true"]
 
 [phases.start]
-cmd = "java -Dserver.port=$PORT -jar target/flavorverse-0.0.1-SNAPSHOT.jar"
+cmd = "java -Dserver.port=$PORT -Xmx512m -jar target/flavorverse-0.0.1-SNAPSHOT.jar"
+
+[variables]
+MAVEN_OPTS = "-Xmx512m"

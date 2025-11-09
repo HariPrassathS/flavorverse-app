@@ -1,0 +1,11 @@
+Dockerfile
+Dockerfile.backup
+.git
+.gitignore
+target/
+*.md
+README.md
+TODO.md
+DEPLOY_INSTRUCTIONS.md
+GITHUB_DEPLOYMENT.md
+QUICK_DEPLOY.md
